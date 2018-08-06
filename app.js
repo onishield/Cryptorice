@@ -13,6 +13,7 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
+    msg2 = cut(msg)
     reply(reply_token,msg)
     res.sendStatus(200)
 })
@@ -27,6 +28,9 @@ function reply(reply_token,msg) {
         messages: [{
             type: 'text',
             text: msg
+        },{
+            type: 'text',
+            text: msg2
         }]
     })
     request.post({
@@ -46,5 +50,6 @@ function cipher(msg){
 }
 
 function cut(msg){
-    var res = msg.slice(0, 12)
+    let res = msg.slice(0, 12)
+    return res[0];
 }
