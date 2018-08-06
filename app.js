@@ -15,7 +15,7 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
-    msg2 = cut(msg)
+    msg2 = msg
     //msg3 = selected
     reply(reply_token,msg,msg2)
     res.sendStatus(200)
