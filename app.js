@@ -5,8 +5,6 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const crypto = require('crypto');
 var moduleCat = require( "./cat.js" );
-//var selected = "index : {";
-
 const app = express()
 const port = process.env.PORT || 4000
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,9 +12,8 @@ app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
-    msg = cipher(msg)
-    msg2 = msg
-    //msg3 = selected
+    msg = msg
+    msg2 = cipher(msg)
     reply(reply_token,msg,msg2)
     res.sendStatus(200)
 })
@@ -56,7 +53,6 @@ function cut(msg){
   var temp = msg;
     for (var i = 0; i < 12; i++) {
       var index = Math.floor(Math.random() * temp.length - i);
-      //selected = index + ",";
       var item = temp.splice(index,1);
       temp.push(item);
       var newmsg += item;
