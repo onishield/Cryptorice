@@ -14,11 +14,11 @@ app.post('/webhook', (req, res) => {
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
     msg2 = cut(msg)
-    reply(reply_token,msg)
+    reply(reply_token,msg,msg2)
     res.sendStatus(200)
 })
 app.listen(port)
-function reply(reply_token,msg) {
+function reply(reply_token,msg,msg2) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer {' + moduleCat.cat + '}'
