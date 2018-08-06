@@ -21,7 +21,7 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(200)
 })
 app.listen(port)
-function reply(reply_token,msg,msg2,msg3) {
+function reply(reply_token,msg,msg2) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer {' + moduleCat.cat + '}'
@@ -54,7 +54,7 @@ function cipher(msg){
 
 function cut(msg){
     for (var i = 0; i < 12; i++) {
-      let index = Math.floor(Math.random() * msg.length - i);
+      var index = Math.floor(Math.random() * msg.length - i);
       //selected = index + ",";
       var item = msg.splice(index,1);
       msg.push(item);
