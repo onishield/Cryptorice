@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const crypto = require('crypto');
 var moduleCat = require( "./cat.js" );
+var selected = "index : {";
+
 const app = express()
 const port = process.env.PORT || 4000
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -14,11 +16,12 @@ app.post('/webhook', (req, res) => {
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
     msg2 = cut(msg)
+    msg3 = selected
     reply(reply_token,msg,msg2)
     res.sendStatus(200)
 })
 app.listen(port)
-function reply(reply_token,msg,msg2) {
+function reply(reply_token,msg,msg2,msg3) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer {' + moduleCat.cat + '}'
@@ -31,6 +34,9 @@ function reply(reply_token,msg,msg2) {
         },{
             type: 'text',
             text: msg2
+        },{
+            type: 'text',
+            text: msg3
         }]
     })
     request.post({
@@ -44,12 +50,18 @@ function reply(reply_token,msg,msg2) {
 
 function cipher(msg){
     const cipher = crypto.createCipher('aes192', 'a password');
-    let encrypted = cipher.update(msg, 'base64', 'hex');
+    let encrypted = cipher.update(msg, 'utf8', 'hex');
     encrypted += cipher.final('hex');
     return encrypted;
 }
 
 function cut(msg){
-    let res = msg.slice(0, 12)
-    return res;
+    for (var i = 0; i < 12; i++) {
+      let index = Math.floor(Math.random() * msg.length - i);
+      selected = index + ",";
+      var item = msg.splice(index,1);
+      msg.push(item);
+      var newmsg+=item;
+    }
+    return newmsg;
 }
