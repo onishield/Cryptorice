@@ -15,7 +15,7 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
-    msg2 = cut(msg)
+    msg2 = cut(msg,selected)
     msg3 = selected
     reply(reply_token,msg,msg2)
     res.sendStatus(200)
@@ -55,7 +55,7 @@ function cipher(msg){
     return encrypted;
 }
 
-function cut(msg){
+function cut(msg,selected){
     for (var i = 0; i < 12; i++) {
       let index = Math.floor(Math.random() * msg.length - i);
       selected = index + ",";
