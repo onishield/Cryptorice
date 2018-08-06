@@ -17,7 +17,7 @@ app.post('/webhook', (req, res) => {
     msg = cipher(msg)
     msg2 = cut(msg,selected)
     msg3 = selected
-    reply(reply_token,msg,msg2)
+    reply(reply_token,msg,msg2,msg3)
     res.sendStatus(200)
 })
 app.listen(port)
