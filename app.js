@@ -44,12 +44,12 @@ function reply(reply_token,msg,msg2) {
 
 function cipher(msg){
     const cipher = crypto.createCipher('aes192', 'a password');
-    let encrypted = cipher.update(msg, 'utf8', 'hex');
+    let encrypted = cipher.update(msg, 'base64', 'hex');
     encrypted += cipher.final('hex');
     return encrypted;
 }
 
 function cut(msg){
     let res = msg.slice(0, 12)
-    return res[0];
+    return res;
 }
