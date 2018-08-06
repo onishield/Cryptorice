@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const crypto = require('crypto');
 var moduleCat = require( "./cat.js" );
-var selected = "index : {";
+//var selected = "index : {";
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -15,9 +15,9 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     msg = cipher(msg)
-    msg2 = cut(msg,selected)
-    msg3 = selected
-    reply(reply_token,msg,msg2,msg3)
+    msg2 = cut(msg)
+    //msg3 = selected
+    reply(reply_token,msg,msg2)
     res.sendStatus(200)
 })
 app.listen(port)
@@ -34,9 +34,6 @@ function reply(reply_token,msg,msg2,msg3) {
         },{
             type: 'text',
             text: msg2
-        },{
-            type: 'text',
-            text: msg3
         }]
     })
     request.post({
@@ -55,10 +52,10 @@ function cipher(msg){
     return encrypted;
 }
 
-function cut(msg,selected){
+function cut(msg){
     for (var i = 0; i < 12; i++) {
       let index = Math.floor(Math.random() * msg.length - i);
-      selected = index + ",";
+      //selected = index + ",";
       var item = msg.splice(index,1);
       msg.push(item);
       var newmsg+=item;
