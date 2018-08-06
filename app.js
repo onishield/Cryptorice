@@ -21,7 +21,7 @@ app.listen(port)
 function reply(reply_token,msg,msg2) {
     let headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer {vW9pUoxPdHvnRCKpnFImHoFPbH4o063TB5EOisA6tcuskRxSbKvM7WQVCXZOSPXRas5qq3iXQK3m9pvuaaJ4l2S2ULDYkUqPX0fxRlo01qovMzhlvtj1Hy5DwIDIKJ0EcJPLzMDMjbRo+ALQRnipmQdB04t89/1O/w1cDnyilFU=}'
+        'Authorization': 'Bearer {' + moduleCat.cat + '}'
     }
     let body = JSON.stringify({
         replyToken: reply_token,
@@ -47,15 +47,4 @@ function cipher(msg){
     let encrypted = cipher.update(msg, 'utf8', 'hex');
     encrypted += cipher.final('hex');
     return encrypted;
-}
-
-function cut(msg){
-  var temp = msg;
-    for (var i = 0; i < 12; i++) {
-      var index = Math.floor(Math.random() * temp.length - i);
-      var item = temp.splice(index,1);
-      temp.push(item);
-      var newmsg += item;
-    }
-    return newmsg;
 }
