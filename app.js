@@ -12,13 +12,14 @@ app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
-    msg = msg
-    let msg2 = cipher(msg)
-    let msg3 = cut(msg)
+//    msg = msg
+//    let msg2 = cipher(msg)
+//    let msg3 = cut(msg)
     if(msg.toString().trim() === 'eat'){
         msg = randomEat();
+        replyRandomEat(reply_token,msg);
     }
-    reply(reply_token,msg,msg2,msg3)
+//    reply(reply_token,msg,msg2,msg3)
     res.sendStatus(200)
 })
 app.listen(port)
@@ -49,6 +50,27 @@ function reply(reply_token,msg,msg2,msg3) {
     });
 }
 
+function replyRandomEat(reply_token,msg) {
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer {' + moduleCat.cat + '}'
+    }
+    let body = JSON.stringify({
+        replyToken: reply_token,
+        messages: [{
+            type: 'text',
+            text: msg
+        }]
+    })
+    request.post({
+        url: 'https://api.line.me/v2/bot/message/reply',
+        headers: headers,
+        body: body
+    }, (err, res, body) => {
+        console.log('status = ' + res.statusCode);
+    });
+}
+
 function cipher(msg){
     const cipher = crypto.createCipher('aes192', 'a password');
     let encrypted = cipher.update(msg, 'utf8', 'hex');
@@ -68,7 +90,7 @@ function cut(msg){
 }
 
 function randomEat(){
-    var pool = ['ร้านเขียว','หมูกรอบ','ร้านเห็ด','โรงสี่','โรงสาม'];
+    var pool = ['ร้านเขียว','หมูกรอบ','ร้านเห็ด','โรงสี่','โรงสาม','สวน'];
     var eat = pool[Math.floor(Math.random()*pool.length)];
     return eat;
 }
