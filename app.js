@@ -15,6 +15,9 @@ app.post('/webhook', (req, res) => {
     msg = msg
     let msg2 = cipher(msg)
     let msg3 = cut(msg)
+    if(msg.toString().trim() === 'eat'){
+        msg = randomEat();
+    }
     reply(reply_token,msg,msg2,msg3)
     res.sendStatus(200)
 })
@@ -62,4 +65,10 @@ function cut(msg){
       var newmsg = temp + i;
     }
     return newmsg;
+}
+
+function randomEat(){
+    var pool = ['ร้านเขียว','หมูกรอบ','ร้านเห็ด','โรงสี่','โรงสาม'];
+    var eat = pool[Math.floor(Math.random()*pool.length)];
+    return eat;
 }
