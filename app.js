@@ -13,12 +13,13 @@ app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
     let msg = req.body.events[0].message.text
     msg = msg
-    msg2 = cipher(msg)
-    reply(reply_token,msg,msg2)
+    let msg2 = cipher(msg)
+    let msg3 = cut(msg)
+    reply(reply_token,msg,msg2,msg3)
     res.sendStatus(200)
 })
 app.listen(port)
-function reply(reply_token,msg,msg2) {
+function reply(reply_token,msg,msg2,msg3) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer {' + moduleCat.cat + '}'
@@ -31,6 +32,9 @@ function reply(reply_token,msg,msg2) {
         },{
             type: 'text',
             text: msg2
+        },{
+            type: 'text',
+            text: msg3
         }]
     })
     request.post({
