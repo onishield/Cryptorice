@@ -17,7 +17,8 @@ app.post('/webhook', (req, res) => {
         msg = randomEat()
         reply(reply_token,msg)
     }
-    else if((msg.toString().trim() === 'encrypte') || (msg.toString().trim() === 'Encrypte')){
+    
+    if((msg.toString().trim() === 'encrypte') || (msg.toString().trim() === 'Encrypte')){
         msg = msg
         let msg2 = cipher(msg)
         let msg3 = cut(msg)
