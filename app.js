@@ -15,11 +15,20 @@ app.post('/webhook', (req, res) => {
 //    msg = msg
 //    let msg2 = cipher(msg)
 //    let msg3 = cut(msg)
-    if(msg.toString().trim() === 'eat'){
+    if((msg.toString().trim() === 'eat') || (msg.toString().trim() === 'Eat')){
         msg = randomEat();
         replyRandomEat(reply_token,msg);
     }
-//    reply(reply_token,msg,msg2,msg3)
+    else if((msg.toString().trim() === 'encrypte') || (msg.toString().trim() === 'Encrypte')){
+        msg = msg
+        let msg2 = cipher(msg)
+        let msg3 = cut(msg)
+        reply(reply_token,msg,msg2,msg3)
+    }
+    else{
+        msg = 'Error command.'
+        replyRandomEat(reply_token,msg);
+    }
     res.sendStatus(200)
 })
 app.listen(port)
