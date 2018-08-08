@@ -16,6 +16,9 @@ app.post('/webhook', (req, res) => {
     if((msg.toString().trim() === 'eat') || (msg.toString().trim() === 'Eat')){
         msg = randomEat()
         reply(reply_token,msg)
+    }else{
+        msg = 'Error command.'
+        reply(reply_token,msg)
     }
     
     if((msg.toString().trim() === 'encrypte') || (msg.toString().trim() === 'Encrypte')){
@@ -23,8 +26,7 @@ app.post('/webhook', (req, res) => {
         let msg2 = cipher(msg)
         let msg3 = cut(msg)
         replyEncrypted(reply_token,msg,msg2,msg3)
-    }
-    else{
+    }else{
         msg = 'Error command.'
         reply(reply_token,msg)
     }
