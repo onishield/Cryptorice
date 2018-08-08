@@ -89,7 +89,7 @@ function cipher(msg){
 function cut(msg){
     var temp = msg
     for (var i = 0; i < 12; i++) {
-        var index = Math.floor(Math.random() * temp.length - i)
+    //  var index = Math.floor(Math.random() * temp.length - i)
     //  var item = temp.splice(index,1);
     //  temp.push(item);
       var temp += i
