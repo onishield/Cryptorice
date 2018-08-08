@@ -95,7 +95,8 @@ function cut(msg){
     //  temp.push(item);
       var temp += i
     }
-    var newmsg = msg + ', msg.length:' + msg.length + ', iter count:' + temp
+    //var newmsg = msg + ', msg.length:' + msg.length + ', iter count:' + temp
+    var newmsg = msg + ', iter count:' + temp
     return newmsg
 }
 
